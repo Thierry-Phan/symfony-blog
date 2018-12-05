@@ -9,7 +9,7 @@
         {% endblock %}
     </head>
     <body>
-    {# s'il y a un utilisateur conneté et qu'il a le r$ole d'admin #}
+    {# s'il y a un utilisateur conneté et qu'il a le rôle d'admin #}
     {% if is_granted('ROLE_ADMIN') %}
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container navbar-nav">
@@ -38,6 +38,7 @@
             <a class="navbar-brand" href="{{ path('app_index_index') }}">
                 Blog
             </a>
+            {{ render(controller('App\\Controller\\CategoryController::menu')) }}
             <ul class="navbar-nav">
                 {# app.user : l'utilisateur connecté #}
                 {% if app.user is null %}

@@ -43,9 +43,9 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * {id} est optionnel et doit être un nombre
-     * @Route("/edition/{id}", defaults={"id": null}, requirements={"id":"\d+"})
-     */
+ * {id} est optionnel et doit être un nombre
+ * @Route("/edition/{id}", defaults={"id": null}, requirements={"id":"\d+"})
+ */
     public function edit(Request $request, $id)
     {
         dump($id);
