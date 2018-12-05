@@ -1,5 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <br>
     <h1>{{ category }}</h1>
+
+    {% for article in articles %}
+        <h3>{{ article.title }}</h3>
+
+        <p class="font-weight-light font-italic">{{ article.publicationDate|date('d/m/Y H:i') }}</p>
+        <p>{{ article.content }}</p>
+        <div class="text-right">
+        <a href="{{ path('app_article_index', {id: article.id}) }}" class="btn btn-success ">voir plus</a>
+        </div>
+        <hr>
+    {% else %}
+        <p>Aucun article dans cette catégorie</p>
+    {% endfor %}
 {% endblock %}

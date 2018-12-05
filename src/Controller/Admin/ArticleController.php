@@ -153,6 +153,11 @@ class ArticleController extends AbstractController
         );
     }
 
+    /**
+     * @param Article $article
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/delete")
+     */
     public function delete(Article $article)
     {
         $em = $this->getDoctrine()->getManager();

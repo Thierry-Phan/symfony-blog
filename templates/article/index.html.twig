@@ -1,5 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <br>
     <h1>{{ article.title }}</h1>
+    <p>
+        Par {{ article.author }},
+        <em>{{ article.publicationDate|date('d/m/Y H:i') }}</em><br>
+        <strong> Dans {{ article.category }}</strong>
+    </p>
+    {% if article.image is not null %}
+        <div>
+            <img src="{{ asset('images/' ~ article.image) }}" height="200px">
+        </div>
+    {% endif %}
+    <p>{{ article.content|nl2br }}</p>
+
+    {% if app.user is not empty %}
+        {{form_start(form)}}
+
+        {{form_row(form.content)}}
+        <button class="btn btn-primary" type="submit">Envoyer</button><hr>
+
+        {{form_end(form) }}
+    {% else %}
+        <a href="{{ path('app_security_login') }}">Veuillez vous inscrire pour poster un commentaire</a>
+    {% endif %}
+
+    {% for comment in article.comments %}
+
+        <h6>Par {{ comment.user }}</h6>
+        <p class="font-weight-light font-italic">{{ comment.dateComment|date('d/m/Y H:i') }}</p>
+
+        <p>{{ comment.content }}</p>
+
+        <hr>
+    {% endfor %}
+
 {% endblock %}

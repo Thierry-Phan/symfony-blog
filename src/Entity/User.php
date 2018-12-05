@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -62,7 +64,16 @@ class User implements UserInterface, \Serializable
      */
     private $plainPassword;
 
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
+     */
+    private $comments;
 
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -242,4 +253,23 @@ class User implements UserInterface, \Serializable
     {
         return $this->firstname . ' ' . $this->lastname;
     }
+
+    /**
+     * @return Collection
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param Collection $comments
+     * @return User
+     */
+    public function setComments(Collection $comments): User
+    {
+        $this->comments = $comments;
+        return $this;
+    }
+    
 }

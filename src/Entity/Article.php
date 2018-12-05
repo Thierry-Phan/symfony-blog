@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -62,6 +64,17 @@ class Article
      *     mimeTypesMessage="Le fichier doit être une image")
      */
     private $image;
+
+    /**
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="article")
+     */
+    private $comments;
+
+    public function __contruct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -155,6 +168,24 @@ class Article
     public function setImage($image)
     {
         $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param Collection $comments
+     * @return Article
+     */
+    public function setComments(Collection $comments): Article
+    {
+        $this->comments = $comments;
         return $this;
     }
 
